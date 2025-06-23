@@ -1,0 +1,28 @@
+# Umum
+.DS_Store
+*.log
+
+# Env file
+.env
+.env.local
+.env.*.local
+
+# node_modules di semua tempat
+node_modules/
+
+# Folder build dari React
+frontend/build/
+
+# Folder dist (jika kamu compile TS atau lainnya)
+dist/
+
+# SQLite / DB file (jika pakai SQLite, optional)
+*.sqlite
+*.sqlite3
+
+# Coverage
+coverage/
+
+# IDE related
+.vscode/
+.idea/
