@@ -13,9 +13,9 @@ This app allows users to register, log in, and manage their own project portfoli
 ## 📁 Project Structure
 
 SkillDeck/
-├── backend/ # Express.js REST API
-├── frontend/ # React frontend
-└── README.md
+- backend/ # Express.js REST API
+- frontend/ # React frontend
+- README.md
 
 ## 🛠️ Tech Stack
 
