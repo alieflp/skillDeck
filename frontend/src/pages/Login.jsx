@@ -23,28 +23,37 @@ const Login = () => {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
-      <h1 className="text-3xl font-bold text-blue-500">Hello Tailwind!</h1>
-      <h2>Login SkillDeck</h2>
-      <form onSubmit={handleLogin}>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold mb-4 text-center">Login SkillDeck</h2>
+      <form onSubmit={handleLogin} className="space-y-4">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
+          required
+          className="w-full border px-3 py-2 rounded-md"
         />
-        <br />
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
+          required
+          className="w-full border px-3 py-2 rounded-md"
         />
-        <br />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Login
+        </button>
       </form>
-      <p>
-        Belum punya akun? <a href="/register">Daftar di sini</a>
+      <p className="text-center text-sm mt-4">
+        Belum punya akun?{" "}
+        <a href="/register" className="text-blue-500 underline">
+          Daftar di sini
+        </a>
       </p>
     </div>
   );
