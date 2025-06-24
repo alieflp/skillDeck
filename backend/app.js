@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: true })); // juga aman untuk form-urlenco
 app.use("/uploads", express.static("uploads")); // tampilkan gambar
 
 //routes
+app.use("/api/projects", projectRoutes);
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/project", require("./routes/projectRoutes"));
 
