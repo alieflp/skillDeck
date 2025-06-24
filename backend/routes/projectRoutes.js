@@ -7,5 +7,8 @@ const projectController = require("../controllers/projectController");
 // Route untuk mengupload gambar proyek
 router.post("/", authMiddleware, upload.single("image"), projectController.create);
 router.get("/", authMiddleware, projectController.getAll);
+router.get("/:id", authMiddleware, projectController.getOneProject);
+router.put("/:id", authMiddleware, upload.single("image"), projectController.update);
+router.delete("/:id", authMiddleware, projectController.delete);
 
 module.exports = router;

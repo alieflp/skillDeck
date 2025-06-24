@@ -43,3 +43,65 @@ exports.create = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+exports.getOneProject = async (req, res) => {
+  try {
+    const project = await Project.findOne({
+      where: { id: req.params.id, userId: req.user.id },
+    });
+    if (!project) return res.status(404).json({ message: "Project tidak ditemukan" });
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.update = async (req, res) => {
+  try {
+    const project = await Project.findOne({
+      where: { id: req.params.id, userId: req.user.id },
+    });
+    if (!project) return res.status(404).json({ message: "Project tidak ditemukan" });
+
+    const {
+      title,
+      description,
+      skills,
+      progress,
+      githubLink,
+      category,
+    } = req.body;
+
+    if (req.file) {
+      project.image = req.file.filename;
+    }
+
+    await project.update({
+      title,
+      description,
+      skills,
+      progress,
+      githubLink,
+      category,
+      image: project.image,
+    });
+
+    res.json({ message: "Project berhasil diperbarui", project });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+exports.delete = async (req, res) => {
+  try {
+    const project = await Project.findOne({
+      where: { id: req.params.id, userId: req.user.id },
+    });
+    if (!project) return res.status(404).json({ message: "Project tidak ditemukan" });
+
+    await project.destroy();
+    res.json({ message: "Project berhasil dihapus" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
