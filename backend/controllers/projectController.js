@@ -17,17 +17,19 @@ exports.create = async (req, res) => {
     const {
       title,
       description,
-      image,
       skills,
       progress,
       githubLink,
       category,
     } = req.body;
 
+    // Ambil nama file dari multer
+    const image = req.file ? req.file.filename : null;
+
     const project = await Project.create({
       title,
       description,
-      image,
+      image, // nama file, bukan path lengkap
       skills,
       progress,
       githubLink,
@@ -37,6 +39,7 @@ exports.create = async (req, res) => {
 
     res.status(201).json(project);
   } catch (err) {
+    console.error("Error saat membuat proyek:", err);
     res.status(400).json({ error: err.message });
   }
 };

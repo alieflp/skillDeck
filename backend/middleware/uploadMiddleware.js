@@ -11,7 +11,12 @@ const storage = multer.diskStorage({
     cb(null, uniqueName);
   },
 });
-
+// Filter file agar hanya gambar
+const fileFilter = (req, file, cb) => {
+  const allowed = ["image/jpeg", "image/jpg", "image/png"];
+  if (allowed.includes(file.mimetype)) cb(null, true);
+  else cb(new Error("Hanya file gambar yang diperbolehkan"), false);
+};
 const upload = multer({ storage });
 
 module.exports = upload;

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       image: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       skills: {
         type: DataTypes.STRING,
@@ -55,7 +55,28 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
         validate: {
-          isIn: [["web", "mobile", "desktop", "other"]], // Validates that the category is one of the specified values
+          isIn: [[
+          "Web Development",
+          "Mobile Development",
+          "Backend Development",
+          "Frontend Development",
+          "Fullstack",
+          "API Development",
+          "DevOps",
+          "Database",
+          "Machine Learning",
+          "Artificial Intelligence",
+          "Data Science",
+          "Cybersecurity",
+          "Game Development",
+          "Embedded Systems",
+          "Desktop App",
+          "Blockchain",
+          "Scripting/Automation",
+          "Testing/QA",
+          "Cloud Computing",
+          "Other"
+        ]], // Validates that the category is one of the predefined options
         },
       },
     },

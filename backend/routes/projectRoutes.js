@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/authMiddleware");
-const { getAll, create } = require("../controllers/projectController");
+const authMiddleware = require("../middleware/authMiddleware");
+const upload = require("../middleware/uploadMiddleware");
+const projectController = require("../controllers/projectController");
 
-router.get("/", auth, getAll);
-router.post("/", auth, create);
+// Route untuk mengupload gambar proyek
+router.post("/", authMiddleware, upload.single("image"), projectController.create);
 
 module.exports = router;

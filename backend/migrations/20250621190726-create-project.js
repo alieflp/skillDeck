@@ -16,6 +16,7 @@ module.exports = {
       },
       image: {
         type: Sequelize.STRING,
+        allowNull: true,
       },
       skills: {
         type: Sequelize.STRING,
