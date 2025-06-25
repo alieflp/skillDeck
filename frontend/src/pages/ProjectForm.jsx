@@ -2,29 +2,48 @@ import { useState } from "react";
 import axios from "axios";
 
 const ProjectForm = () => {
-  const [title, setTitle] = useState("");
-  const [skills, setSkills] = useState("");
-  const [description, setDescription] = useState("");
-  const [progress, setProgress] = useState(0);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    skills: "",
+    progress: 0,
+    githubLink: "",
+    category: "",
+  });
+  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     const token = localStorage.getItem("token");
+    const formData = new FormData();
+
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("skills", form.skills);
+    formData.append("progress", form.progress);
+    formData.append("githubLink", form.githubLink);
+    formData.append("category", form.category);
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
-      await axios.post(
-        "http://localhost:3001/api/projects",
-        {
-          title,
-          description,
-          skills,
-          progress: parseInt(progress),
+      await axios.post("http://localhost:3001/api/project", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      });
       alert("Berhasil tambah proyek");
       window.location.href = "/dashboard";
     } catch (err) {
@@ -41,38 +60,66 @@ const ProjectForm = () => {
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
           Tambah Proyek Baru
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
           <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            name="title"
+            value={form.title}
+            onChange={handleChange}
             placeholder="Judul Proyek"
             required
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-            placeholder="Skill (pisahkan dengan koma)"
-            required
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
           />
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={form.description}
+            onChange={handleChange}
             placeholder="Deskripsi Proyek"
             rows={4}
             required
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
           ></textarea>
           <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full border border-gray-300 px-4 py-2 rounded-md bg-white"
+          />
+          <input
+            type="text"
+            name="skills"
+            value={form.skills}
+            onChange={handleChange}
+            placeholder="Skill (pisahkan dengan koma)"
+            required
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
+          />
+          <input
             type="number"
-            value={progress}
-            onChange={(e) => setProgress(e.target.value)}
+            name="progress"
+            value={form.progress}
+            onChange={handleChange}
             placeholder="Progress (%)"
             min="0"
             max="100"
             required
-            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
+          />
+          <input
+            type="text"
+            name="githubLink"
+            value={form.githubLink}
+            onChange={handleChange}
+            placeholder="Link GitHub Proyek"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
+          />
+          <input
+            type="text"
+            name="category"
+            value={form.category}
+            onChange={handleChange}
+            placeholder="Kategori (misal: Frontend, Backend, Fullstack)"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
           />
           <button
             type="submit"
@@ -83,10 +130,7 @@ const ProjectForm = () => {
           </button>
         </form>
         <div className="mt-4 text-center">
-          <a
-            href="/dashboard"
-            className="text-sm text-gray-600 hover:underline"
-          >
+          <a href="/dashboard" className="text-sm text-gray-600 hover:underline">
             ← Kembali ke Dashboard
           </a>
         </div>

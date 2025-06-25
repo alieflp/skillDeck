@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProjectForm from "./pages/ProjectForm";
 import Register from "./pages/Register";
+import ProjectDetail from "./pages/ProjectDetail";
 import ProtectedRoute from "./pages/components/ProtectedRoute";
 
 function App() {
@@ -24,6 +25,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ProjectForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit-project/:id"
+          element={
+            <ProtectedRoute>
+              <ProjectDetail />
             </ProtectedRoute>
           }
         />
