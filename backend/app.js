@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const userRoutes = require("./routes/userRoutes");
 const path = require("path");
 require("dotenv").config();
 
@@ -14,8 +15,8 @@ app.use(express.urlencoded({ extended: true })); // juga aman untuk form-urlenco
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // tampilkan gambar
 
 //routes
-
 app.use("/api/auth", authRoutes);
 app.use("/api/project", projectRoutes);
+app.use("/api/user", userRoutes);
 
 module.exports = app;
