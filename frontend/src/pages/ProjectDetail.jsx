@@ -15,7 +15,8 @@ const ProjectDetail = () => {
     githubLink: "",
     category: "",
   });
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null); // file image baru
+  const [previewUrl, setPreviewUrl] = useState(""); // URL preview
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -25,6 +26,11 @@ const ProjectDetail = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setForm(res.data);
+
+      // Set preview gambar lama jika ada
+      if (res.data.image) {
+      setPreviewUrl(`http://localhost:3001/uploads/${res.data.image}`);
+      }
     } catch (err) {
       console.error("Fetch project failed", err);
       setError("Gagal memuat data proyek.");
@@ -36,7 +42,11 @@ const ProjectDetail = () => {
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setImage(file);
+    if (file) {
+      setPreviewUrl(URL.createObjectURL(file)); // preview lokal
+    }
   };
 
   const handleUpdate = async (e) => {
@@ -125,6 +135,14 @@ const ProjectDetail = () => {
             required
             className="w-full border border-gray-300 px-4 py-2 rounded"
           ></textarea>
+          {/* Preview Gambar */}
+          <div className="w-full mb-2 rounded overflow-hidden border border-gray-200">
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className="w-full h-auto rounded"
+            />
+          </div>
           <input
             type="file"
             accept="image/*"
@@ -166,7 +184,6 @@ const ProjectDetail = () => {
             placeholder="Kategori"
             className="w-full border border-gray-300 px-4 py-2 rounded"
           />
-
           <div className="flex justify-between mt-6">
             <button
               type="submit"
