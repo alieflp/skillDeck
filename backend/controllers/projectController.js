@@ -24,7 +24,8 @@ exports.create = async (req, res) => {
     } = req.body;
 
     // Ambil nama file dari multer
-    const image = req.file ? req.file.filename : null;
+    const image = req.file ? `/uploads/projects/${req.file.filename}` : null;
+
 
     const project = await Project.create({
       title,

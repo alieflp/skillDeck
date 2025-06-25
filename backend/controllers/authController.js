@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
 
     // Path foto (jika ada)
-    const profilePicture = file ? `/uploads/${file.filename}` : null;
+    const profilePicture = file ? `/uploads/profiles/${file.filename}` : null;
 
     // Buat user baru
     const user = await User.create({

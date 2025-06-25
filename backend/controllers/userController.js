@@ -39,7 +39,7 @@ exports.updateProfile = async (req, res) => {
         if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
       }
 
-      user.profilePicture = `/uploads/${req.file.filename}`;
+        user.profilePicture = `/uploads/profiles/${req.file.filename}`;
     }
 
     await user.save();
