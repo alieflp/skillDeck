@@ -30,7 +30,8 @@ SkillDeck/
 cd backend
 npm install
 npm run dev
-Make sure to configure your .env file with DB and port settings.
+Make sure to configure your .env file with DB and port settings
+npx sequelize-cli db:migrate
 
 🎨 Frontend Setup
 bash
