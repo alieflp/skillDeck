@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaGithub, FaEdit, FaTrash } from "react-icons/fa";
 
@@ -29,8 +30,15 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto p-6">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800">📋 Proyek Saya</h2>
+    <div className="flex justify-between items-center mb-8">
+      <h2 className="text-3xl font-bold text-gray-800">📋 Proyek Saya</h2>
+      <div className="flex items-center gap-3">
+        <Link
+          to="/profile"
+          className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md"
+        >
+          Profil Saya
+        </Link>
         <button
           onClick={handleLogout}
           className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
@@ -38,6 +46,7 @@ const Dashboard = () => {
           Logout
         </button>
       </div>
+    </div>
 
       {/* Tambah Proyek */}
       <div className="mb-6">

@@ -5,6 +5,7 @@ import ProjectForm from "./pages/ProjectForm";
 import Register from "./pages/Register";
 import ProjectDetail from "./pages/ProjectDetail";
 import ProtectedRoute from "./pages/components/ProtectedRoute";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
           element={
             <ProtectedRoute>
               <ProjectDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
