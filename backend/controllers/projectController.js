@@ -23,14 +23,12 @@ exports.create = async (req, res) => {
       category,
     } = req.body;
 
-    // Ambil nama file dari multer
     const image = req.file ? `/uploads/projects/${req.file.filename}` : null;
-
 
     const project = await Project.create({
       title,
       description,
-      image, // nama file, bukan path lengkap
+      image,
       skills,
       progress,
       githubLink,
@@ -74,9 +72,9 @@ exports.update = async (req, res) => {
     } = req.body;
 
     if (req.file) {
-      project.image = req.file.filename;
+      project.image = `/uploads/projects/${req.file.filename}`;
     }
-
+    
     await project.update({
       title,
       description,
